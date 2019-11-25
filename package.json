@@ -4,6 +4,7 @@
   "description": "Rest API",
   "main": "index.js",
   "scripts": {
+    "start": "node server/server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Hernán Giraldo",
