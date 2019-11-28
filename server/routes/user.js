@@ -21,7 +21,7 @@ app.get('/users', function (req, res) {
       const response = await User.countDocuments({ status: true }, (err, total) => {
         let tmpResp;
 
-        if (!err) {
+        if (err) {
           tmpResp = res.status(500).json(err)
           return tmpResp
         }
