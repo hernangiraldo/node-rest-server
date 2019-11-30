@@ -6,8 +6,9 @@ const app = express()
 const saltRounds = 10;
 
 const User = require('../models/user')
+const { ValidateToken, ValidateRol } = require('./../middlewares/auth')
 
-app.get('/users', function (req, res) {
+app.get('/users', ValidateToken, (req, res) => {
   const page = Number(req.query.page) || 0
   const skip = (page * 10) - 10
   User.find({ status: true }, 'name email role status google img')
@@ -37,7 +38,7 @@ app.get('/users', function (req, res) {
     })
 })
 
-app.post('/users', function (req, res) {
+app.post('/users', [ ValidateToken, ValidateRol ], (req, res) => {
   const body = req.body
 
   const user = new User({
@@ -57,7 +58,7 @@ app.post('/users', function (req, res) {
   })
 });
 
-app.put('/users/:id', function (req, res) {
+app.put('/users/:id', [ ValidateToken, ValidateRol], (req, res) => {
   const id = req.params.id
   const body = _.pick(req.body, [ 'name', 'email', 'img', 'status', 'role' ])
 
@@ -90,7 +91,7 @@ lo mejor es cambiarle el estado
   })
 })*/
 
-app.delete('/users/:id', function (req, res) {
+app.delete('/users/:id', [ ValidateToken, ValidateRol ], (req, res) => {
   const id = req.params.id
 
   User.findByIdAndUpdate(id, { status: false },(err, deletedUser) => {

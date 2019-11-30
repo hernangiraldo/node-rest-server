@@ -1,4 +1,5 @@
 require('./config/config')
+
 const express = require('express')
 const mongoose = require('mongoose')
 
@@ -7,7 +8,8 @@ const bodyParser = require('body-parser')
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
-app.use(require('./routes/user'))
+
+app.use(require('./routes'))
 
 mongoose.set('useCreateIndex', true)
 mongoose.connect(process.env.URL_DB, {
