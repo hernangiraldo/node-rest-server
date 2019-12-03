@@ -28,7 +28,7 @@ app.get('/users', ValidateToken, (req, res) => {
         }
 
         tmpResp =  res.json({
-          data,
+          users: data,
           total
         })
         return tmpResp
@@ -70,26 +70,6 @@ app.put('/users/:id', [ ValidateToken, ValidateRol], (req, res) => {
     res.status(202).json(userDB)
   })
 })
-
-/*
-Eliminaría el usuario de la base de datos pero eso no se debe hacer,
-lo mejor es cambiarle el estado
-
-  app.delete('/users/:id', function (req, res) {
-  const id = req.params.id
-
-    User.findByIdAndRemove(id, (err, deletedUser) => {
-    if (err) {
-      return res.status(400).json(err)
-    }
-
-    if(!deletedUser) {
-      return res.status(400).json(Object.assign({}, err, { message: 'Usuario no existe' }))
-    }
-
-    res.json(deletedUser)
-  })
-})*/
 
 app.delete('/users/:id', [ ValidateToken, ValidateRol ], (req, res) => {
   const id = req.params.id
